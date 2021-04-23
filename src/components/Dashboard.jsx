@@ -24,7 +24,7 @@ const Dashboard = () => {
           <h2 className="text-center mb-4">Profile</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           <div className="mb-4"></div>
-          <strong>Email: </strong> {currentUser?.email}
+          <strong>Email: </strong> {currentUser.email}
         </Card.Body>
       </Card>
       <div className="w-100 text-center mt-3">

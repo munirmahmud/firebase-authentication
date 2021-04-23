@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
 import SignIn from "./components/SignIn";
 import Signup from "./components/Signup";
+import PrivateRoute from "./PrivateRoute";
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
           <Switch>
             <Route exact path="/" component={SignIn} />
             <Route exact path="/signup" component={Signup} />
-            <Route exact path="/dashboard" component={Dashboard} />
+            <PrivateRoute exact path="/dashboard" component={Dashboard} />
           </Switch>
         </Col>
       </Row>
