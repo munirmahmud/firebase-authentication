@@ -1,4 +1,5 @@
 import { Col, Container, Row } from "react-bootstrap";
+import { Route, Switch } from "react-router-dom";
 import Signup from "./components/Signup";
 
 function App() {
@@ -6,7 +7,9 @@ function App() {
     <Container className="mt-5">
       <Row>
         <Col xs={12} md={{ span: 6, offset: 3 }}>
-          <Signup />
+          <Switch>
+            <Route exact path="/signup" component={Signup} />
+          </Switch>
         </Col>
       </Row>
     </Container>

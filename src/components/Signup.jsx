@@ -1,10 +1,35 @@
-import React, { useRef } from "react";
-import { Button, Card, Form } from "react-bootstrap";
-
+import React, { useRef, useState } from "react";
+import { Alert, Button, Card, Form } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContexts";
 const Signup = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
   const confPasswordRef = useRef();
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const { signup } = useAuth();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (passwordRef.current.value !== confPasswordRef.current.value) {
+      setError("Password do not match");
+      return;
+    }
+
+    try {
+      setError("");
+      setLoading(true);
+
+      await signup(emailRef.current.value, passwordRef.current.value);
+    } catch (error) {
+      setError(`Failed to signup ${setError(error.message)}`);
+    }
+
+    setLoading(false);
+  };
 
   return (
     <>
@@ -12,7 +37,9 @@ const Signup = () => {
         <Card.Body>
           <h2 className="text-center mb-4">Sign Up</h2>
 
-          <Form>
+          {error && <Alert variant="danger">{error}</Alert>}
+
+          <Form onSubmit={handleSubmit}>
             <Form.Group id="email">
               <Form.Label>Email</Form.Label>
               <Form.Control type="email" ref={emailRef} required />
@@ -27,7 +54,7 @@ const Signup = () => {
             </Form.Group>
 
             <Form.Group>
-              <Button type="submit" className="w-100">
+              <Button type="submit" className="w-100" disabled={loading}>
                 Sign Up
               </Button>
             </Form.Group>
@@ -36,7 +63,7 @@ const Signup = () => {
       </Card>
 
       <div className="w-100 text-center mt-2">
-        Already have an account? Log In
+        Already have an account? <Link to="/">Log In</Link>
       </div>
     </>
   );
