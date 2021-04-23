@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { Alert, Button, Card, Form } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContexts";
 
 const SigIn = () => {
@@ -8,8 +8,9 @@ const SigIn = () => {
   const passwordRef = useRef();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const history = useHistory();
 
-  const { signup } = useAuth();
+  const { login } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,9 +19,11 @@ const SigIn = () => {
       setError("");
       setLoading(true);
 
-      await signup(emailRef.current.value, passwordRef.current.value);
+      await login(emailRef.current.value, passwordRef.current.value);
+
+      history.push("/dashboard");
     } catch (error) {
-      setError(`Failed to signup ${setError(error.message)}`);
+      setError(`Failed to login ${setError(error.message)}`);
     }
 
     setLoading(false);

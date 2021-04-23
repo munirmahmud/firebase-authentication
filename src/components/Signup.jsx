@@ -24,6 +24,10 @@ const Signup = () => {
       setLoading(true);
 
       await signup(emailRef.current.value, passwordRef.current.value);
+
+      emailRef.current.value = "";
+      passwordRef.current.value = "";
+      confPasswordRef.current.value = "";
     } catch (error) {
       setError(`Failed to signup ${setError(error.message)}`);
     }
@@ -45,11 +49,11 @@ const Signup = () => {
               <Form.Control type="email" ref={emailRef} required />
             </Form.Group>
             <Form.Group id="password">
-              <Form.Label>Email</Form.Label>
+              <Form.Label>Password</Form.Label>
               <Form.Control type="password" ref={passwordRef} required />
             </Form.Group>
             <Form.Group id="conf_password">
-              <Form.Label>Email</Form.Label>
+              <Form.Label>Confirm Password</Form.Label>
               <Form.Control type="password" ref={confPasswordRef} required />
             </Form.Group>
 
